@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+  font-family: "Heebo", sans-serif;
+}
+
+:root {
+  --orange: #ff9f0a;
+  --grey-claro: #a5a5a5;
+  --grey-oscuro: #333333;
+  --color-result: rgb(238, 219, 184);
+  --background-all: rgb(27, 23, 23);
+  --background-boton: rgb(62, 70, 70);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: flex-end;
+  height: 100vh;
+  padding: 20px;
+  background-color: var(--background-all);
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 5px;
+  background-color: var(--background-all);
+}
+
+button {
+  height: 60px;
+  width: 60px;
+  background-color: var(--background-boton);
+  color: var(--color-result);
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+}
+
+.Yellow {
+  background-color: var(--orange);
+  font-weight: 800;
+}
+
+.Grey {
+  background-color: var(--grey-oscuro);
+  color: black;
+  font-weight: 800;
+}
+
+.Numb {
+  background-color: var(--grey-claro);
+  color: var(--gris-oscuro);
+  font-weight: 800;
+}
+
+.col-2 {
+  grid-column: span 2;
+}
+
+.cristal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 14%;
+  width: 30%;
+  align-items: flex-end;
+  font-size: 25px;
+  color: var(--color-result);
+  padding-right: 10px;
+  margin-bottom: 20px;
+}
