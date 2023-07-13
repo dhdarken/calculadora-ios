@@ -38,7 +38,7 @@ function Operaciones() {
       } else if (Symb === "=") {
         operando2 = dato1.textContent;
         console.log(operando2);
-        // resolver();
+        resolver();
       }
     }
   }
@@ -70,3 +70,31 @@ encontrarNum1();
 //  }
 //}
 //encontrarNum2();
+
+function resetear() {
+  dato2.textContent = "";
+  operando1 = 0;
+  operando2 = 0;
+  operacion = "";
+}
+
+function resolver() {
+  let res = 0;
+  switch (operacion) {
+    case "+":
+      res = operando1 + operando2;
+      break;
+
+    case "-":
+      res = operando1 - operando2;
+      break;
+    case "/":
+      res = operando1 / operando2;
+      break;
+    case "*":
+      res = operando1 * operando2;
+      break;
+  }
+  resetear();
+  dato2.textContent = res;
+}
