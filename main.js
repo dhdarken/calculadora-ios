@@ -9,12 +9,14 @@ const dato1 = document.getElementById("first");
 const dato2 = document.getElementById("second");
 
 function Operaciones() {
-  for (let i = 0; i < clasesOpe.length; i++) {
+  for (let i = 0; i <= clasesOpe.length; i++) {
     const Symbol = document.getElementById("Symb" + i);
+    console.log(Symbol);
     Symbol.addEventListener("click", Sym);
     function Sym() {
       let Symb = Symbol.textContent;
       console.log(Symb);
+
       if (Symb === "+") {
         operando1 = dato1.textContent;
         operacion = "+";
@@ -39,10 +41,13 @@ function Operaciones() {
         operando2 = dato1.textContent;
         console.log(operando2);
         resolver();
+      } else if (Symb === "C") {
+        resetear();
       }
     }
   }
 }
+
 Operaciones();
 function encontrarNum1() {
   for (let i = 0; i < clasesNumb.length; i++) {
@@ -56,10 +61,11 @@ function encontrarNum1() {
 }
 
 function limpiar() {
+  dato2.textContent = dato1.textContent;
   dato1.textContent = "";
 }
-
 encontrarNum1();
+
 //function encontrarNum2() {
 //  for (let i = 0; i < clasesNumb.length; i++) {
 //    const Number = document.getElementById("NUM" + i);
@@ -72,6 +78,7 @@ encontrarNum1();
 //encontrarNum2();
 
 function resetear() {
+  dato1.textContent = "";
   dato2.textContent = "";
   operando1 = 0;
   operando2 = 0;
