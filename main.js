@@ -1,107 +1,99 @@
-let operando1;
-let operando2;
-let operacion;
+const ACCIONES = {
+  dividir: "dividir",
+  multiplicar: " multiplicar",
+  sumar: "sumar",
+  restar: "restar",
+  igual: "igual",
+  reset: "reset",
+  cambiar: "cambiar",
+  porcentaje: "porcentaje",
+  calculadora: "calculadora",
+};
 
-const resultado = document.getElementById("Result");
-const clasesNumb = document.getElementsByClassName("Numb");
-const clasesOpe = document.getElementsByClassName("Yellow");
-const dato1 = document.getElementById("first");
-const dato2 = document.getElementById("second");
+let result = "";
+let anterior = "";
+let d = document;
+const calcu = d.getElementById("calculadora");
+const resultado = d.getElementById("first");
+const antesResultado = d.getElementById("second");
+calcu.addEventListener("click", functi);
 
-function Operaciones() {
-  for (let i = 0; i <= clasesOpe.length; i++) {
-    const Symbol = document.getElementById("Symb" + i);
-    console.log(Symbol);
-    Symbol.addEventListener("click", Sym);
-    function Sym() {
-      let Symb = Symbol.textContent;
-      console.log(Symb);
+const setfield = function ({ sigResult, anteriorResult }) {
+  result = sigResult;
+  anterior = anteriorResult;
+  antesResultado.textContent = anterior;
+  resultado.textContent = result;
+};
 
-      if (Symb === "+") {
-        operando1 = dato1.textContent;
-        operacion = "+";
-        console.log(operando1);
-        limpiar();
-      } else if (Symb === "÷") {
-        operando1 = dato1.textContent;
-        operacion = "/";
-        console.log(operando1);
-        limpiar();
-      } else if (Symb === "X") {
-        operando1 = dato1.textContent;
-        operacion = "*";
-        console.log(operando1);
-        limpiar();
-      } else if (Symb === "-") {
-        operando1 = dato1.textContent;
-        operacion = "-";
-        console.log(operando1);
-        limpiar();
-      } else if (Symb === "=") {
-        operando2 = dato1.textContent;
-        console.log(operando2);
-        resolver();
-      } else if (Symb === "C") {
-        resetear();
-      }
-    }
+const aplicarPorcentaje = function () {
+  setfield({ sigResult: result / 100, anteriorResult: "" });
+};
+
+const sumas = function () {
+  antesResultado.textContent = result;
+  resultado.textContent = "";
+  //function sum(num1, num2) {
+  //return num1 + num2;
+  //}
+  result = "";
+  //sum(antesResultado, result);
+};
+const restas = function () {
+  antesResultado.textContent = result;
+  resultado.textContent = "";
+  result = "";
+  function res(num1, num2) {
+    return num1 - num2;
   }
-}
-
-Operaciones();
-function encontrarNum1() {
-  for (let i = 0; i < clasesNumb.length; i++) {
-    const Number = document.getElementById("NUM" + i);
-    Number.addEventListener("click", funs);
-    function funs() {
-      const num1 = Number.textContent;
-      dato1.textContent = dato1.textContent + num1;
-    }
+  res(antesResultado, result);
+};
+const multiplicas = function () {
+  antesResultado.textContent = result;
+  resultado.textContent = "";
+  result = "";
+  function mul(num1, num2) {
+    return num1 * num2;
   }
-}
 
-function limpiar() {
-  dato2.textContent = dato1.textContent;
-  dato1.textContent = "";
-}
-encontrarNum1();
-
-//function encontrarNum2() {
-//  for (let i = 0; i < clasesNumb.length; i++) {
-//    const Number = document.getElementById("NUM" + i);
-//    Number.addEventListener("click", funs);
-//    function funs() {
-//      const num2 = Number.textContent;
-//    }
-//  }
-//}
-//encontrarNum2();
-
-function resetear() {
-  dato1.textContent = "";
-  dato2.textContent = "";
-  operando1 = 0;
-  operando2 = 0;
-  operacion = "";
-}
-
-function resolver() {
-  let res = 0;
-  switch (operacion) {
-    case "+":
-      res = operando1 + operando2;
-      break;
-
-    case "-":
-      res = operando1 - operando2;
-      break;
-    case "/":
-      res = operando1 / operando2;
-      break;
-    case "*":
-      res = operando1 * operando2;
-      break;
+  mul(antesResultado, result);
+};
+const divides = function () {
+  antesResultado.textContent = result;
+  resultado.textContent = "";
+  result = "";
+  function div(num1, num2) {
+    return num1 / num2;
   }
-  resetear();
-  dato2.textContent = res;
+  div(antesResultado, result);
+};
+const iguals = function () {};
+
+const ejecutar = function ({ action }) {
+  const comandos = {
+    [ACCIONES.dividir]: divides,
+    [ACCIONES.multiplicar]: multiplicas,
+    [ACCIONES.sumar]: sumas,
+    [ACCIONES.reset]: () => setfield({ sigResult: "", anteriorResult: "" }),
+    [ACCIONES.igual]: iguals,
+    [ACCIONES.restar]: restas,
+    [ACCIONES.cambiar]: function () {},
+    [ACCIONES.porcentaje]: aplicarPorcentaje,
+  };
+  comandos[action]();
+};
+
+function functi(event) {
+  const valor = event.target.id;
+  const actions = Object.keys(ACCIONES);
+  if (actions.includes(valor)) {
+    return ejecutar({
+      action: valor,
+    });
+  }
+  if (result === "0") {
+    result = valor;
+  } else {
+    result += valor;
+    resultado.textContent = result;
+  }
 }
